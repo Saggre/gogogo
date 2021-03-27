@@ -1,5 +1,7 @@
 package util
 
+// Built file, do not edit manually
+
 var BasicFrag string = `
 #version 330
 

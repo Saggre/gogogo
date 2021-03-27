@@ -6,6 +6,7 @@ function embed_shaders() {
   rm $go_shader || :
   touch $go_shader
   printf "package util\n\n" >>$go_shader
+  printf "// Built file, do not edit manually\n\n" >>$go_shader
 
   for file in ./src/shaders/*; do
     suffix=""
