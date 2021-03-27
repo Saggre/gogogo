@@ -6,7 +6,7 @@ on:
       - "*"
 
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,12 +26,13 @@ jobs:
       - name: Build program
         run: |
           go build
+          mv gogogo start
 
       - name: Archive release
         uses: thedoctor0/zip-release@master
         with:
           filename: 'release.zip'
-          exclusions: '/.github/* go.* *.go README.md'
+          exclusions: '/.github/* /.git/* .gitignore go.* *.go README.md'
           path: '.'
           directory: '.'
 
