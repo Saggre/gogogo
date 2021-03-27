@@ -18,9 +18,13 @@ jobs:
         with:
           go-version: '1.16.x'
 
-      - run: |
+      - name: Install dependencies
+        run: |
           sudo apt-get install libgl1-mesa-dev xorg-dev
           go get
+
+      - name: Build program
+        run: |
           go build
 
       - name: Archive release

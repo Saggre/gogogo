@@ -1,5 +1,7 @@
 # Rendering with GO
 
+![Build Status](https://github.com/Saggre/gogogo/workflows/Build%20release/badge.svg?style=flat-square)
+
 Uses GLFW bindings to render with OpenGL.
 
 ## Building on Debian/Ubuntu
