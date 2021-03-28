@@ -22,6 +22,9 @@ function embed_shaders() {
     *.vert)
       suffix="Vert"
       ;;
+    *.geom)
+      suffix="Geom"
+      ;;
     esac
 
     printf "var %s string = \`\n%s\n\` + %s\n\n" "$filename$suffix" "$contents" '"\x00"' >>$go_shader

@@ -1,22 +1,3 @@
-package util
-
-// Built file, do not edit manually
-
-var BasicFrag string = `
-#version 460
-
-uniform sampler2D tex;
-
-in vec2 fragTexCoord;
-
-out vec4 outputColor;
-
-void main() {
-    outputColor = texture(tex, fragTexCoord);
-}
-` + "\x00"
-
-var BasicGeom string = `
 #version 460
 
 layout(points) in;
@@ -43,13 +24,3 @@ void main()
 
     EndPrimitive();
 }
-` + "\x00"
-
-var BasicVert string = `
-#version 460
-
-void main()
-{
-}
-` + "\x00"
-
