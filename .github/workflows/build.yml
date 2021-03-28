@@ -21,12 +21,10 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get install libgl1-mesa-dev xorg-dev
-          go get
 
       - name: Build program
         run: |
-          go build
-          mv gogogo start
+          make
 
       - name: Archive release
         uses: thedoctor0/zip-release@master

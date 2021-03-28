@@ -178,7 +178,7 @@ vec3 getPixel(in vec2 coord, float time) {
     uv.x *= iResolution.x / iResolution.y;*/
     vec2 uv = coord;
     uv = uv * 2.0 - 1.0;
-    
+
     // ray
     vec3 ang = vec3(sin(time*3.0)*0.1, sin(time)*0.2+0.3, time);
     vec3 ori = vec3(0.0, 3.5, time*5.0);
