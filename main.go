@@ -97,7 +97,7 @@ main:
 	textureUniform := gl.GetUniformLocation(program, gl.Str("tex\x00"))
 	gl.Uniform1i(textureUniform, 0)
 
-	gl.BindFragDataLocation(program, 0, gl.Str("outputColor\x00"))
+	gl.BindFragDataLocation(program, 0, gl.Str("fragColor\x00"))
 
 	// Load the texture
 	texture, err := newTexture("null.png")
@@ -119,28 +119,39 @@ main:
 	gl.EnableVertexAttribArray(vertAttrib)
 	gl.VertexAttribPointer(vertAttrib, 3, gl.FLOAT, false, 5*4, gl.PtrOffset(0))*/
 
+	var time float64 = glfw.GetTime()
+	var previousTime float64 = time
+	var deltaTime float64 = 0.0
+
+	var iTimeLoc = gl.GetUniformLocation(program, gl.Str("iTime\x00"))
+	var iTimeDeltaLoc = gl.GetUniformLocation(program, gl.Str("iTimeDelta\x00"))
+	var iResolutionLoc = gl.GetUniformLocation(program, gl.Str("iResolution\x00"))
+	var iMouseLoc = gl.GetUniformLocation(program, gl.Str("iMouse\x00"))
+
+	gl.Uniform1f(iTimeDeltaLoc, float32(deltaTime))
+	gl.Uniform3f(iResolutionLoc, float32(windowWidth), float32(windowHeight), 1.0)
+
 	// Configure global settings
 	gl.Enable(gl.DEPTH_TEST)
 	gl.DepthFunc(gl.LESS)
 	gl.ClearColor(1.0, 1.0, 1.0, 1.0)
 
-	angle := 0.0
-	previousTime := glfw.GetTime()
-
 	for !window.ShouldClose() {
 		gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
 		// Update
-		time := glfw.GetTime()
-		elapsed := time - previousTime
+		time = glfw.GetTime()
+		deltaTime = time - previousTime
 		previousTime = time
 
-		angle += elapsed
-		//model = mgl32.HomogRotate3D(float32(angle), mgl32.Vec3{0, 1, 0})
+		var xpos, ypos = window.GetCursorPos()
 
 		// Render
 		gl.UseProgram(program)
 		//gl.UniformMatrix4fv(modelUniform, 1, false, &model[0])
+
+		gl.Uniform1f(iTimeLoc, float32(time))
+		gl.Uniform4f(iMouseLoc, float32(xpos), float32(ypos), 0.0, 0.0)
 
 		gl.BindVertexArray(vao)
 
@@ -256,15 +267,6 @@ func newTexture(file string) (uint32, error) {
 		gl.Ptr(rgba.Pix))
 
 	return texture, nil
-}
-
-var planeVertices = []float32{
-	-1.0, -1.0, 1.0,
-	1.0, -1.0, 1.0,
-	-1.0, 1.0, 1.0,
-	1.0, -1.0, 1.0,
-	1.0, 1.0, 1.0,
-	-1.0, 1.0, 1.0,
 }
 
 // Set the working directory to the root of Go package, so that its assets can be accessed.
