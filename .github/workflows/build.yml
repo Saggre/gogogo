@@ -31,7 +31,7 @@ jobs:
         uses: thedoctor0/zip-release@master
         with:
           filename: 'release.zip'
-          exclusions: '/.github/* /.git/* .gitignore go.* *.go README.md'
+          exclusions: '/.github/* /.git/* /src/* *.sh Makefile .gitignore go.* *.go README.md'
           path: '.'
           directory: '.'
 
